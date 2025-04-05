@@ -1,0 +1,124 @@
+{% extends "base.html" %} {% block content %}
+<div class="dashboard-container">
+  <div class="dashboard-grid">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">User Information</h4>
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
+          <div class="info-label">Username</div>
+          <div class="info-value">{{ user.username }}</div>
+        </div>
+        <div class="mb-3">
+          <div class="info-label">Mobile Number</div>
+          <div class="info-value">{{ user.mobile }}</div>
+        </div>
+        <div class="mb-3">
+          <div class="info-label">UID</div>
+          <div class="info-value">{{ user.uid }}</div>
+        </div>
+        <div class="mb-3">
+          <div class="info-label">MMID</div>
+          <div class="info-value">{{ user.mmid }}</div>
+        </div>
+        <div>
+          <div class="info-label">Balance</div>
+          <div class="info-value">₹{{ "%.2f"|format(user.balance) }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Make Payment</h4>
+      </div>
+      <div class="card-body">
+        <form method="POST" action="{{ url_for('payment') }}">
+          <div class="form-group">
+            <label for="encrypted_mid" class="form-label"
+              >Merchant QR Code Data</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="encrypted_mid"
+              name="encrypted_mid"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="amount" class="form-label">Amount</label>
+            <input
+              type="number"
+              class="form-control"
+              id="amount"
+              name="amount"
+              step="0.01"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="pin" class="form-label">UPI PIN</label>
+            <input
+              type="password"
+              class="form-control"
+              id="pin"
+              name="pin"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%">
+            Pay Now
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-header">
+      <h4 class="card-title">Recent Transactions</h4>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Transaction ID</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Transaction history will be populated here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-header">
+      <h4 class="card-title">Security Information</h4>
+    </div>
+    <div class="card-body">
+      <div class="alert alert-info">
+        <h5 class="card-subtitle">Lightweight Cryptography (LWC)</h5>
+        <p>
+          Your transactions are secured using SPECK algorithm for fast and
+          efficient encryption.
+        </p>
+      </div>
+      <div class="alert alert-success">
+        <h5 class="card-subtitle">Quantum Security</h5>
+        <p>
+          Your PIN is protected using quantum-resistant cryptography to prevent
+          future quantum attacks.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

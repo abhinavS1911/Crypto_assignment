@@ -1,0 +1,56 @@
+{% extends "base.html" %} {% block content %}
+<div class="container" style="max-width: 340px; margin-top: 40px">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title">Sign in to UPI Gateway</h4>
+    </div>
+    <div class="card-body">
+      <form method="POST" action="{{ url_for('login') }}">
+        <div class="form-group">
+          <label for="username" class="form-label">Username</label>
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            name="username"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="user_type" class="form-label">User Type</label>
+          <select class="form-control" id="user_type" name="user_type" required>
+            <option value="user">User</option>
+            <option value="merchant">Merchant</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%">
+          Sign in
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="card mt-4">
+    <div class="card-body text-center">
+      <p style="margin: 0">New to UPI Gateway?</p>
+      <div style="margin-top: 16px">
+        <a href="{{ url_for('register_user') }}" class="btn btn-secondary"
+          >Create User Account</a
+        >
+        <a href="{{ url_for('register_merchant') }}" class="btn btn-secondary"
+          >Create Merchant Account</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UPI Payment Gateway</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+      type="text/css"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container navbar-container">
+        <a href="{{ url_for('index') }}" class="navbar-brand"
+          >UPI Payment Gateway</a
+        >
+        <ul class="navbar-nav">
+          {% if current_user.is_authenticated %}
+          <li>
+            <a href="{{ url_for('user_dashboard') }}" class="nav-link"
+              >Dashboard</a
+            >
+          </li>
+          <li><a href="{{ url_for('logout') }}" class="nav-link">Logout</a></li>
+          {% elif session.get('merchant_id') %}
+          <li>
+            <a href="{{ url_for('merchant_dashboard') }}" class="nav-link"
+              >Dashboard</a
+            >
+          </li>
+          <li><a href="{{ url_for('logout') }}" class="nav-link">Logout</a></li>
+          {% else %}
+          <li><a href="{{ url_for('login') }}" class="nav-link">Login</a></li>
+          <li>
+            <a href="{{ url_for('register_user') }}" class="nav-link"
+              >Register User</a
+            >
+          </li>
+          <li>
+            <a href="{{ url_for('register_merchant') }}" class="nav-link"
+              >Register Merchant</a
+            >
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %}
+      <div class="flash-messages">
+        {% for category, message in messages %}
+        <div class="flash-message alert alert-{{ category }}">
+          {{ message }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %} {% endwith %} {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>

@@ -1,0 +1,95 @@
+{% extends "base.html" %} {% block content %}
+<div class="dashboard-container">
+  <div class="dashboard-grid">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Merchant Information</h4>
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
+          <div class="info-label">Name</div>
+          <div class="info-value">{{ merchant.name }}</div>
+        </div>
+        <div class="mb-3">
+          <div class="info-label">MID</div>
+          <div class="info-value">{{ merchant.mid }}</div>
+        </div>
+        <div>
+          <div class="info-label">Balance</div>
+          <div class="info-value">₹{{ "%.2f"|format(merchant.balance) }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Generate QR Code</h4>
+      </div>
+      <div class="card-body">
+        <div class="text-center">
+          <a href="{{ url_for('generate_qr') }}" class="btn btn-primary"
+            >Generate New QR Code</a
+          >
+        </div>
+        {% if qr_filename %}
+        <div class="mt-4 text-center">
+          <img
+            src="{{ url_for('static', filename=qr_filename) }}"
+            alt="Merchant QR Code"
+            class="qr-code"
+          />
+          <p class="form-help-text mt-2">
+            Scan this QR code to receive payments
+          </p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-header">
+      <h4 class="card-title">Recent Transactions</h4>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Transaction ID</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Transaction history will be populated here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-header">
+      <h4 class="card-title">Security Information</h4>
+    </div>
+    <div class="card-body">
+      <div class="alert alert-info">
+        <h5 class="card-subtitle">Lightweight Cryptography (LWC)</h5>
+        <p>
+          Your Merchant ID is encrypted using SPECK algorithm for secure QR code
+          generation.
+        </p>
+      </div>
+      <div class="alert alert-success">
+        <h5 class="card-subtitle">Blockchain Security</h5>
+        <p>
+          All transactions are recorded on the blockchain for transparency and
+          security.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
